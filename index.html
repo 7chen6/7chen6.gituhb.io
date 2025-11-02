@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>温馨提示</title>
+  <style>
+    /* 关键改动 ①：去掉 overflow:hidden；②：给个可见高度 */
+    html, body {
+      margin: 0;
+      height: 100%;          /* 让页面真正“撑开” */
+      background: #f0f0f0;
+      font-family: "微软雅黑", sans-serif;
+    }
+    .tip {
+      position: absolute;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 18px;
+      color: #333;
+      box-shadow: 0 2px 8px rgba(0,0,0,.2);
+      animation: fadeInOut 3s forwards;
+      pointer-events: none;
+    }
+    @keyframes fadeInOut {
+      0%   { opacity: 0; transform: scale(.8); }
+      20%  { opacity: 1; transform: scale(1); }
+      80%  { opacity: 1; transform: scale(1); }
+      100% { opacity: 0; transform: scale(.8); }
+    }
+  </style>
+</head>
+<body>
+<script>
+  const tips = [
+    "多喝水哦~", "保持微笑呀", "每天都要元气满满",
+    "记得吃水果", "保持好心情", "好好爱自己", "我想你了",
+    "梦想成真", "期待下一次见面", "金榜题名", "顺顺利利", "早点休息",
+    "所有烦恼都消失", "别熬夜", "今天过得开心嘛", "天冷了，多穿衣服"
+  ];
+  const colors = [
+    'lightpink','skyblue','lightgreen','lavender','lightyellow',
+    'plum','coral','bisque','aquamarine','mistyrose','honeydew',
+    'lavenderblush','oldlace'
+  ];
+
+  function createTip() {
+    const div = document.createElement('div');
+    div.className = 'tip';
+    div.textContent = tips[Math.floor(Math.random() * tips.length)];
+    div.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+    div.style.left = Math.random() * (window.innerWidth - 200) + 'px';
+    div.style.top  = Math.random() * (window.innerHeight - 60) + 'px';
+    document.body.appendChild(div);
+    setTimeout(() => div.remove(), 3000);
+  }
+
+  /* 一次性飘 300 条 */
+  for (let i = 0; i < 300; i++) {
+    setTimeout(createTip, i * 50);
+  }
+</script>
+</body>
+</html>
